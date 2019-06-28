@@ -26,7 +26,8 @@ SYSTEMS = {
     'carcosa': character.CarcosaCharacter,
     'moc': character.MastersOfCarcosaCharacter,
     'dd': character.DelvingDeeperCharacter,
-    'lotfp': character.LotFPCharacter
+    'lotfp': character.LotFPCharacter,
+    'wh': character.WhiteHackCharacter
 }
 
 
@@ -81,6 +82,16 @@ def make_demoncity_text_char():
 @app.route('/demoncity/')
 def make_demoncity_char():
     return render_template("demoncity.html", c=demoncity.Character())
+
+@app.route('/wh/text/')
+def make_wh_text_char():
+    mimetype = "text/plain"
+    content = render_template("whitehack.txt", c=wh.Character())
+    return Response(content, status=200, mimetype=mimetype)
+
+@app.route('/wh/')
+def make_wh_char():
+    return render_template("whitehack.html", c=wh.Character())
 
 @app.route('/mazerats/', defaults={'number': 1})
 @app.route('/mazerats/<int:number>/')

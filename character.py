@@ -754,3 +754,53 @@ class DelvingDeeperCharacter(LBBCharacter):
             elif val >= 18:
                 return 4
         return 0
+
+class WhiteHackCharacter(LBBCharacter):
+    """
+    Models a Whitehack character.
+    """
+
+    @property
+    def system(self):
+        return "Whitehack"
+
+    def get_hp(self):
+        """
+        Determine HP based on hit dice and CON modifiers. Fighters have an
+        additional 2 hit points at first level.
+        """
+        hp = super(LBBCharacter, self).get_hp()
+        if self.character_class == characterclass.FIGHTER:
+            hp = hp + 1
+        return hp
+
+    def get_bonus(self, attr, val):
+        """
+        Bonuses are similar to LLB, but even less pronounced. Also there is
+        bonus damage for high strength.
+        """
+        if attr == 'STR':
+            # bonus to attack
+            if val >= 13:
+                return 1
+            elif val >= 16:
+                return 2
+        elif attr == 'INT':
+            # Bonus to languages
+            if val >= 13:
+                return 1
+            elif val >= 16:
+                return 2
+        elif attr == 'CON':
+            # Bonus to HP
+            if val >= 13:
+                return 1
+            elif val >= 16:
+                return 2
+        elif attr == 'DEX':
+            # initiative
+            if val >= 13:
+                return 1
+            elif val >= 16:
+                return 2
+        return 0
